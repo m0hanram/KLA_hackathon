@@ -1,2 +1,0 @@
-class YAMLHandler:
-    pass
