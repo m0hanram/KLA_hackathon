@@ -18,6 +18,7 @@ class Executor:
         else:
             self.data = {}
 
+    #task->execute
     def execute(self, name: str, workflow: Workflow) -> None:
         task_name = self.name + "." + name
         if isinstance(workflow, Task):
@@ -30,6 +31,7 @@ class Executor:
             executor = Executor(task_name, workflow, self.data)
             executor.start_execution()
 
+    #flow->excute
     def start_execution(self) -> dict:
         LOG.info(f"{self.name} Entry")
 

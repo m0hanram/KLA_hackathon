@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from abc import ABC
-from typing import Literal, Union
 
 from pydantic import BaseModel, Field, root_validator
 

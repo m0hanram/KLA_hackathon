@@ -7,6 +7,7 @@ import pandas as pd
 
 from models.enums import FunctionType
 from models.inputs import DataLoadInput, Input, TimeFunctionInput
+from models.outputs import Output
 from models.workflow import Task
 
 LOG = getLogger()
@@ -29,9 +30,14 @@ class TimeFunction(FunctionContract):
 
 class DataLoadFunction(FunctionContract):
     @staticmethod
-    def execute(task_name: str, func_input: DataLoadInput) -> None:
+    def execute(task_name: str, func_input: DataLoadInput, func_output: Output) -> None:
         LOG.info(f"{task_name} Executing DataLoad ({func_input.filename})")
-        return pd.read_csv(func_input.filename)
+        df = pd.read_csv(func_input.filename)
+        # func_output.NoOfDefects = df.shape[0]
+        # func_output.DataTable = df.values.tolist()
+        return (df.shape[0], df.values.tolist())
+
+
 
 
 class FunctionFactory:
