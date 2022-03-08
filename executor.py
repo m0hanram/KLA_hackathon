@@ -1,5 +1,5 @@
-from concurrent.futures import ThreadPoolExecutor
 from logging import getLogger
+from threading import Thread
 from typing import Optional
 
 from functions import FunctionFactory
@@ -20,14 +20,15 @@ class Executor:
 
     def execute(self, name: str, workflow: Workflow) -> None:
         task_name = self.name + "." + name
-        LOG.info(f"{task_name} Entry")
         if isinstance(workflow, Task):
+            LOG.info(f"{task_name} Entry")
             func = FunctionFactory.get_function(workflow.function)
             self.data[task_name] = func.execute(task_name, workflow.inputs)
+            LOG.info(f"{task_name} Exit")
+
         elif isinstance(workflow, Flow):
             executor = Executor(task_name, workflow, self.data)
             executor.start_execution()
-        LOG.info(f"{task_name} Exit")
 
     def start_execution(self) -> dict:
         LOG.info(f"{self.name} Entry")
@@ -35,9 +36,14 @@ class Executor:
         if self.flow.execution == ExecutionType.Sequential:
             for name, workflow in self.flow.activities.items():
                 self.execute(name, workflow)
+
         elif self.flow.execution == ExecutionType.Concurrent:
-            with ThreadPoolExecutor(max_workers=len(self.flow.activities)) as executor:
-                executor.map(self.execute, self.flow.activities.items())
+            threads = []
+            for name, workflow in self.flow.activities.items():
+                th = Thread(target=self.execute, args=(name, workflow))
+                threads.append(th)
+            [th.start() for th in threads]
+            [th.join() for th in threads]
 
         LOG.info(f"{self.name} Exit")
         return self.data

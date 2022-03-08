@@ -22,7 +22,7 @@ class TimeFunction(FunctionContract):
     @staticmethod
     def execute(task_name: str, func_input: TimeFunctionInput) -> None:
         LOG.info(
-            f"{task_name}: Executing TimeFunction ({func_input.function_input}, {func_input.execution_time})"
+            f"{task_name} Executing TimeFunction ({func_input.function_input}, {func_input.execution_time})"
         )
         time.sleep(func_input.execution_time)
 
@@ -30,15 +30,16 @@ class TimeFunction(FunctionContract):
 class DataLoadFunction(FunctionContract):
     @staticmethod
     def execute(task_name: str, func_input: DataLoadInput) -> None:
-        LOG.info(f"{task_name}: Executing DataLoad ({func_input.filename})")
+        LOG.info(f"{task_name} Executing DataLoad ({func_input.filename})")
         return pd.read_csv(func_input.filename)
 
 
 class FunctionFactory:
     function_map = {
-            FunctionType.DataLoad: DataLoadFunction,
-            FunctionType.TimeFunction: TimeFunction,
-        }
+        FunctionType.DataLoad: DataLoadFunction,
+        FunctionType.TimeFunction: TimeFunction,
+    }
+
     @classmethod
     def get_function(cls, func_type: FunctionType) -> FunctionContract:
         return cls.function_map[func_type]
