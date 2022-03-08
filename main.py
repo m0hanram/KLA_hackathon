@@ -8,7 +8,7 @@ from models.workflow import Flow
 
 import logging
 
-logging.basicConfig(filename='app.log', filemode='w+', format='%(asctime)s;%(message)s', level=logging.DEBUG)
+logging.basicConfig(filename='app.txt', filemode='w+', format='%(asctime)s;%(message)s', level=logging.DEBUG)
 logging.info("Logging started")
 
 if __name__ == "__main__":
