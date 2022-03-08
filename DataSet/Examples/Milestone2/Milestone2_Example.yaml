@@ -12,7 +12,7 @@ M2SampleWorkFlow :
       Function : "TimeFunction"
       Condition : "$(M2SampleTask1.NoOfDefects) > 10"
       Inputs : { FunctionInput : "$(M2SampleTask1.NoOfDefects)", ExecutionTime : "2" }  
-    M2SampleTask2 :
+    M2SampleTask3 :
       Type : Task
       Function : "TimeFunction"
       Condition : "$(M2SampleTask1.NoOfDefects) < 10"

@@ -29,7 +29,7 @@ class MergeResultsInput(Input):
 
 class ExportResultsInput(Input):
     file_name: str = Field(alias="FileName")
-    defect_table: str = Field(alias="DefectTable")
+    defet_table: str = Field(alias="DefectTable")
 
 
 INPUT_MAPPING = {

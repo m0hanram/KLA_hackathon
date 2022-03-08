@@ -8,19 +8,19 @@ from executor import Executor
 from models.workflow import Flow
 
 logging.basicConfig(
-    filename="MileStone1B.txt",
+    filename="MileStone2A.txt",
     filemode="w+",
     format="%(asctime)s.000000;%(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
     level=logging.DEBUG,
 )
-# logging.info("Logging started")
+logging.info("Logging started")
 
 if __name__ == "__main__":
     # if len(sys.argv) <= 1:
     #     print("No file to load")
     # filename = sys.argv[0]
-    filename = "DataSet\Milestone1\Milestone1B.yaml"
+    filename = "Milestone2A.yaml"
 
     with open(filename) as f:
         configuration = yaml.load(f, Loader=SafeLoader)
