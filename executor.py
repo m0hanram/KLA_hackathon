@@ -22,13 +22,14 @@ class Executor:
             self.data = {}
 
     def get_replaced_value(self, val):
-        reference_match = re.match(r"^\$\(([A-Za-z.0-9]+)\)", val)
+        reference_match = re.match(r"^\$\(([A-Za-z.0-9]+)", val)
         if reference_match:
             key_with_filed = reference_match.group(1)
             last_dot = key_with_filed.rfind(".")
             key, field = key_with_filed[:last_dot], key_with_filed[last_dot + 1 :]
             vals = self.data[self.name + "." + key]
             val = vals[field]
+        # print(val)
         return val
 
     def replace_inputs(self, inputs: Input) -> Input:
